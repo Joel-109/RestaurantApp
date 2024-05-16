@@ -1,11 +1,11 @@
 import Dish from "./Dish";
+import DishContainer from "./DishContainer";
 import OrderList from "./OrderList/OrderList";
 
 export default function DashBoard(){
   
-    return (<section className="w-full flex">
+    return (<section className="w-full">
       <OrderList/>
-      <Dish name="hamburguer" price={99.3} description="lorem insum dolor" quantity={2}></Dish>
-      <Dish name="hamburguer" price={99.3} description="lorem insum dolor" quantity={2}></Dish>
+      <DishContainer/>
     </section>);
 }

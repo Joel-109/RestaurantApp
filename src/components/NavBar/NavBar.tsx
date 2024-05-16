@@ -3,6 +3,7 @@ import { UserButton } from "@clerk/clerk-react";
 import {ActiveWindow} from "../../App.tsx";
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from "@nextui-org/navbar";
 import { Link } from "@nextui-org/link";
+import { FaShoppingCart } from "react-icons/fa";
  
 interface NavBarProps {
   SetActiveWindow: React.Dispatch<React.SetStateAction<ActiveWindow>>;
@@ -18,7 +19,7 @@ export function NavBar(NavBarProps: NavBarProps) {
   ];
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} className="justify-around">
+    <Navbar onMenuOpenChange={setIsMenuOpen} className="justify-between">
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -59,7 +60,7 @@ export function NavBar(NavBarProps: NavBarProps) {
             aria-current="page"
             onClick={() => NavBarProps.SetActiveWindow(ActiveWindow.ShoppingCart)}
           >
-            Clients
+            <FaShoppingCart />
           </Link>
         </NavbarItem>
       </NavbarContent>
