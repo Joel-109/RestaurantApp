@@ -19,7 +19,7 @@ export function NavBar(NavBarProps: NavBarProps) {
   ];
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} className="justify-between">
+    <Navbar onMenuOpenChange={setIsMenuOpen} className="justify-between" maxWidth="full">
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}

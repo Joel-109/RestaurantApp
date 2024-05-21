@@ -3,11 +3,12 @@ import Dish from "./Dish";
 import { getAllDishes } from "../../fetchsource";
 
 interface DishItem {
-    id: number;
+    id: string;
     name: string;
     price: number;
     description: string;
     quantity: number;
+    imageUrl: string;
 }
 
 export default function DishContainer(){
@@ -26,7 +27,7 @@ export default function DishContainer(){
             <h1 className="ml-3 font-bold"> Dishes </h1>
             <section className="flex flex-wrap p-5">
                 {data?.map((dish)=> 
-                <Dish name={dish.name} price={dish.price} description={dish.description} quantity={dish.quantity}></Dish>)}
+                <Dish name={dish.name} price={dish.price} description={dish.description} imageUrl={dish.imageUrl} quantity={dish.quantity} id={dish.id}></Dish>)}
             </section>
         </>
     );

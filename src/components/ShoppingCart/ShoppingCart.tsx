@@ -4,11 +4,12 @@ import { useQuery } from "react-query";
 import ContactData from "./ContactData";
 import {CircularProgress} from "@nextui-org/react";
 interface DishItem {
-    id: number;
-    name: string;
-    price: number;
-    description: string;
-    quantity: number;
+    name: string
+    price: number
+    description: string
+    quantity: number
+    imageUrl: string
+    id: string
 }
 
 export default function ShoppingCart(){
@@ -30,7 +31,7 @@ export default function ShoppingCart(){
             <h1 className="font-bold">Order Dishes</h1>
             <section className="flex flex-wrap w-full my-4">
                 {data?.map((dish)=> 
-                <Dish name={dish.name} price={dish.price} description={dish.description} quantity={dish.quantity}></Dish>)}
+                <Dish id={dish.id} imageUrl={dish.imageUrl} name={dish.name} price={dish.price} description={dish.description} quantity={dish.quantity}></Dish>)}
             </section>
         </section>
     );
