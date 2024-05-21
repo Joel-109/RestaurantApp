@@ -5,6 +5,7 @@ interface DishProps {
     price: number
     description: string
     quantity: number
+    imageUrl: string
 }
   
 export default function Dish(props: DishProps) {
@@ -31,7 +32,7 @@ export default function Dish(props: DishProps) {
           alt="Woman listing to music"
           className="object-cover w-full h-full z-0"
           height={200}
-          src="https://nextui.org/images/hero-card.jpeg"
+          src={props.imageUrl}
           width={200}
           onClick={changeToDescription}
         />
