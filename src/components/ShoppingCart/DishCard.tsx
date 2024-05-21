@@ -1,23 +1,24 @@
 import React, { useState } from "react";
 import {Card, CardFooter, Image, Button, CardHeader} from "@nextui-org/react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { addDishToCart, deleteDishFromCart, getDishQuantity } from "../../fetchsource";
+import { addDishToCart, deleteDishFromCart, getDishInfo, getDishQuantity } from "../../fetchsource";
 import {CircularProgress} from "@nextui-org/react";
 import { useAuth } from "@clerk/clerk-react";
 
 interface DishProps {
-    name: string
-    price: number
-    description: string
-    quantity: number
-    imageUrl: string
     id: string
 }
   
-export default function Dish(props: DishProps) {
+export default function DishCard(props: DishProps) {
   const [image, setImage]= useState(true);
   const { getToken } = useAuth();
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
+
+  console.log("Dishcard id's")
+  console.log(props.id);
+  const {data : dishInfo, isLoading: dishLoading} = useQuery({
+    queryFn: ()=> getToken().then(() => getDishInfo(props.id)),
+  });
   
   const {data : quantity, isLoading, isError} = useQuery({
     queryKey: ["dish" + props.id], 
@@ -40,7 +41,7 @@ export default function Dish(props: DishProps) {
     },
   });
 
-  if (isLoading) { 
+  if (isLoading || dishLoading) { 
     return <CircularProgress color="warning" aria-label="Loading..."/>
   }
 
@@ -58,21 +59,21 @@ export default function Dish(props: DishProps) {
       {image ? 
       <>
         <CardHeader className="absolute z-10 top-1 flex-row justify-between !items-start w-full ">
-          <p className="text-tiny text-white/80 uppercase font-bold">{props.name}</p>
-          <p className="text-tiny text-white/80 uppercase font-bold">{props.price}</p>
+          <p className="text-tiny text-white/80 uppercase font-bold">{dishInfo.name}</p>
+          <p className="text-tiny text-white/80 uppercase font-bold">{dishInfo.price}</p>
         </CardHeader>
         <Image
           alt="Woman listing to music"
           className="object-cover w-full h-52 z-0"
           height={200}
-          src={props.imageUrl}
+          src={dishInfo.imageUrl}
           width={200}
           onClick={changeToDescription}
         />
       </> : <Card  className="h-auto w-auto z-0">
           <div onClick={changeToDescription} className="p-2 w-full h-44">
             <h1 className="font-bold">Description : </h1>
-            <p className="text-sm" > {props.description}</p>
+            <p className="text-sm" > {dishInfo.description}</p>
           </div> </Card>
           }
       <CardFooter className="justify-between  before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 shadow-small z-10 w-full">

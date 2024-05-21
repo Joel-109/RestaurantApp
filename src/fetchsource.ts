@@ -4,6 +4,13 @@ export async function getAllDishes(){
     return data;
 }
 
+export async function getDishInfo(id: string){
+    const response = await fetch(`http://restfullapi-production-374f.up.railway.app/api/dish/${id}`);
+    const data = response.json().catch((error)=>console.error(error));
+    return data;
+}
+
+
 interface CartInfo {
     TotalPrice: number;
     Products: Product[];
@@ -26,6 +33,37 @@ export async function getCart(token: string | null) : Promise<CartInfo> {
     
     const data: CartInfo = await response.json();
     console.log(data);
+    return data;
+}
+
+export async function makeOrder(token: string | null, address: string) : Promise<boolean> {
+    const response = await fetch(`https://backenduserapiv2-production.up.railway.app/clientService/orders/${address}`, {
+        method: 'POST',
+        mode:"cors",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` 
+        }
+    });
+    
+    return response.ok;
+}
+
+interface Order {
+    
+}
+
+export async function getOrders(token: string | null) : Promise<any> {
+    const response = await fetch('https://backenduserapiv2-production.up.railway.app/clientService/orders', {
+        method: 'GET',
+        mode:"cors",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` 
+        }
+    });
+    
+    const data = await response.json();
     return data;
 }
 

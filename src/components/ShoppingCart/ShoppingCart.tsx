@@ -1,8 +1,11 @@
-import Dish from "../Menu/Dish";
-import { getAllDishes } from "../../fetchsource";
+import { getAllDishes, getCart } from "../../fetchsource";
 import { useQuery } from "react-query";
 import ContactData from "./ContactData";
 import {CircularProgress} from "@nextui-org/react";
+import { useAuth } from "@clerk/clerk-react";
+import DishCard from "./DishCard";
+
+
 interface DishItem {
     name: string
     price: number
@@ -13,25 +16,37 @@ interface DishItem {
 }
 
 export default function ShoppingCart(){
-    const {data, isLoading} = useQuery<DishItem[]>('dishes', getAllDishes);
+    const {getToken} = useAuth();
+
+    const {data: CartInfo, isLoading} = useQuery({
+        queryKey: ["cart"],
+        queryFn: ()=>getToken().then((token) => getCart(token)),
+    })
+
     if(isLoading){
         return (<article className="flex justify-center align-center">
             <CircularProgress color="warning" aria-label="Loading..." />
          </article>);
-    }   
-
-    console.log(data);
+    }
+    
+    if (!CartInfo){
+        return (
+            <article>
+                <h1 className="font-bold text-center">No items in the cart</h1>
+            </article>
+        );
+    }
 
     return(
         <section className="mx-3 ">
             <article className="w-full my-4">
                 <h1 className="font-bold  ">Contact Details</h1>
-                <ContactData/>
+                <ContactData totalPrice={CartInfo.TotalPrice}></ContactData>
             </article>
             <h1 className="font-bold">Order Dishes</h1>
             <section className="flex flex-wrap w-full my-4">
-                {data?.map((dish)=> 
-                <Dish id={dish.id} imageUrl={dish.imageUrl} name={dish.name} price={dish.price} description={dish.description} quantity={dish.quantity}></Dish>)}
+                {CartInfo.Products?.map((dish)=> 
+                <DishCard key={dish.ProductId} id={dish.ProductId} ></DishCard>)}
             </section>
         </section>
     );
