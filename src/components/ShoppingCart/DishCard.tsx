@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { addDishToCart, deleteDishFromCart, getDishInfo, getDishQuantity } from "../../fetchsource";
 import {CircularProgress} from "@nextui-org/react";
 import { useAuth } from "@clerk/clerk-react";
+import {Chip} from "@nextui-org/chip";
 
 interface DishProps {
     id: string
@@ -14,9 +15,8 @@ export default function DishCard(props: DishProps) {
   const { getToken } = useAuth();
   const queryClient = useQueryClient();
 
-  console.log("Dishcard id's")
-  console.log(props.id);
   const {data : dishInfo, isLoading: dishLoading} = useQuery({
+    queryKey: ["dishInfo" + props.id],
     queryFn: ()=> getToken().then(() => getDishInfo(props.id)),
   });
   
@@ -71,9 +71,11 @@ export default function DishCard(props: DishProps) {
           onClick={changeToDescription}
         />
       </> : <Card  className="h-auto w-auto z-0">
-          <div onClick={changeToDescription} className="p-2 w-full h-44">
+          <div onClick={changeToDescription} className="p-2 text-white bg-black w-full h-44">
             <h1 className="font-bold">Description : </h1>
-            <p className="text-sm" > {dishInfo.description}</p>
+            <hr className="bg-white"/>
+            <p className="text-sm my-3" > {dishInfo.description}</p>
+            <Chip color="warning" variant="flat" className="my-3">{dishInfo.category}</Chip>
           </div> </Card>
           }
       <CardFooter className="justify-between  before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 shadow-small z-10 w-full">

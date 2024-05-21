@@ -1,11 +1,13 @@
 import {Input} from "@nextui-org/input";
 import {Button, ButtonGroup} from "@nextui-org/button";
-import { useMutation, useQuery } from "react-query";
+import { QueryClient, useMutation, useQuery, useQueryClient } from "react-query";
 import { getCart, makeOrder } from "../../fetchsource";
 import { useAuth } from "@clerk/clerk-react";
 import {CircularProgress} from "@nextui-org/react";
 import {Chip} from "@nextui-org/react";
 import { useState } from "react";
+
+
 
 interface Props {
     totalPrice: number;
@@ -13,16 +15,24 @@ interface Props {
 
 export default function ContactData( props: Props){
     const {getToken} = useAuth();
-    const [deliveryAddress, setAddress] = useState("");
+    const [deliveryAddress, setAddress] = useState(""); 
+    const queryClient = useQueryClient();
+
+    console.log("ContactData rendered: ", deliveryAddress)
 
     const { mutate: submitOrder } = useMutation({
-        mutationFn: (address:string)=>getToken().then((token) => makeOrder(token, address))
+        mutationFn: (address:string)=>getToken().then((token) => makeOrder(token, address)),
+        onSuccess: () => {
+            queryClient.invalidateQueries("cart");
+            queryClient.invalidateQueries("orders");
+            queryClient.setQueryData("cart", { TotalPrice: 0, Products: []})
+        },
     })
 
     return ( 
         <article className="flex mt-5 items-center justify-center wrap">
             <Input
-                onKeyUpCapture={(e)=> setAddress(e.currentTarget.value)}
+                onChange={(e)=> setAddress(e.currentTarget.value)}
                 isClearable
                 type="text"
                 label="Address"
@@ -44,7 +54,9 @@ export default function ContactData( props: Props){
                 <h1>Total <br /></h1>{props.totalPrice.toFixed(2)}$
             </p>
 
-            <Button color="warning" className="font-bold h-14 mx-5 min-w-40 text-white">
+            <Button color="warning" className="font-bold h-14 mx-5 min-w-40 text-white" onClick={
+                () => submitOrder(deliveryAddress)
+            }>
                 Send
             </Button>
         </article>

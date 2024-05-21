@@ -23,6 +23,7 @@ export default function ShoppingCart(){
         queryFn: ()=>getToken().then((token) => getCart(token)),
     })
 
+
     if(isLoading){
         return (<article className="flex justify-center align-center">
             <CircularProgress color="warning" aria-label="Loading..." />

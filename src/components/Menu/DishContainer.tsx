@@ -9,6 +9,7 @@ interface DishItem {
     description: string;
     quantity: number;
     imageUrl: string;
+    category: string;
 }
 
 export default function DishContainer(){
@@ -27,7 +28,7 @@ export default function DishContainer(){
             <h1 className="ml-3 font-bold"> Dishes </h1>
             <section className="flex flex-wrap p-5">
                 {data?.map((dish)=> 
-                <Dish name={dish.name} price={dish.price} description={dish.description} imageUrl={dish.imageUrl} quantity={dish.quantity} id={dish.id}></Dish>)}
+                <Dish key={dish.id} category={dish.category} name={dish.name} price={dish.price} description={dish.description} imageUrl={dish.imageUrl} quantity={dish.quantity} id={dish.id}></Dish>)}
             </section>
         </>
     );

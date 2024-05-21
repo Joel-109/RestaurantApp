@@ -4,7 +4,7 @@ interface OrderCardProps{
     id: string;
     status: "Pending" | "In delivery" | "Delivered";
     date: string;
-    total: number;
+    deliveryAddress: string;
 }
 
 function OrderCard(props:OrderCardProps){
@@ -14,7 +14,7 @@ function OrderCard(props:OrderCardProps){
                 <h1 className="font-bold"> {props.id}</h1>
             </div>
             <p className="text-gray-400">{props.date} </p>
-            <p className="text-gray-400">{props.total} </p>
+            <p className="text-gray-400">{props.deliveryAddress} </p>
             <Chip color={props.status === "Pending"? "warning" : props.status === "In delivery"? "primary": "success"}>{props.status}</Chip>
         </article>
     );

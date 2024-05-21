@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { addDishToCart, deleteDishFromCart, getDishQuantity } from "../../fetchsource";
 import {CircularProgress} from "@nextui-org/react";
 import { useAuth } from "@clerk/clerk-react";
+import {Chip} from "@nextui-org/chip";
 
 interface DishProps {
     name: string
@@ -11,6 +12,7 @@ interface DishProps {
     description: string
     quantity: number
     imageUrl: string
+    category: string
     id: string
 }
   
@@ -70,9 +72,11 @@ export default function Dish(props: DishProps) {
           onClick={changeToDescription}
         />
       </> : <Card  className="h-auto w-auto z-0">
-          <div onClick={changeToDescription} className="p-2 w-full h-44">
+          <div onClick={changeToDescription} className="p-2 bg-black text-white w-full h-44">
             <h1 className="font-bold">Description : </h1>
+            <hr className="bg-white"/>
             <p className="text-sm" > {props.description}</p>
+            <Chip color="warning" variant="flat" className="my-3">{props.category}</Chip>
           </div> </Card>
           }
       <CardFooter className="justify-between  before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 shadow-small z-10 w-full">
