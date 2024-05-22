@@ -1,12 +1,12 @@
 
 export async function getAllDishes(){
-    const response = await fetch('http://restfullapi-production-374f.up.railway.app/api/dish');
+    const response = await fetch('https://restfullapi-production-374f.up.railway.app/api/dish');
     const data = response.json().catch((error)=>console.error(error));
     return data;
 }
 
 export async function getDishInfo(id: string) : Promise<Dish> {
-    const response = await fetch(`http://restfullapi-production-374f.up.railway.app/api/dish/${id}`);
+    const response = await fetch(`https://restfullapi-production-374f.up.railway.app/api/dish/${id}`);
     const data = response.json().catch((error)=>console.error(error));
     return data;
 }
