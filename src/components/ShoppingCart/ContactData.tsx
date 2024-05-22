@@ -1,10 +1,8 @@
 import {Input} from "@nextui-org/input";
-import {Button, ButtonGroup} from "@nextui-org/button";
-import { QueryClient, useMutation, useQuery, useQueryClient } from "react-query";
-import { getCart, makeOrder } from "../../fetchsource";
+import {Button} from "@nextui-org/button";
+import { useMutation,useQueryClient } from "react-query";
+import { makeOrder } from "../../fetchsource";
 import { useAuth } from "@clerk/clerk-react";
-import {CircularProgress} from "@nextui-org/react";
-import {Chip} from "@nextui-org/react";
 import { useState } from "react";
 
 

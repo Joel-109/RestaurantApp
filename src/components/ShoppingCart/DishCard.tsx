@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {Card, CardFooter, Image, Button, CardHeader} from "@nextui-org/react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { addDishToCart, deleteDishFromCart, getDishInfo, getDishQuantity } from "../../fetchsource";

@@ -1,5 +1,5 @@
 import { Chip } from "@nextui-org/chip";
-import {Popover, PopoverTrigger, PopoverContent, Button, Input} from "@nextui-org/react";
+import {Popover, PopoverTrigger, PopoverContent, Button} from "@nextui-org/react";
 import MealOrder from "./MealOrder";
 
 interface OrderCardProps{
@@ -29,7 +29,7 @@ function OrderCard(props:OrderCardProps){
                     <Button color="primary" className="font-bold"> Show Products</Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-[320px] max-h-96 overflow-y-auto scrollbar-hide">
-                    {(titleProps) => (
+                    {() => (
                     <div className="px-1 py-2 w-full">
                         <div className="mt-2 flex flex-col gap-2 w-full pt-1">
                             {props.products.map((product) => <MealOrder mealId={product.ProductId} quantity={product.ProductQuantity}/>)} 

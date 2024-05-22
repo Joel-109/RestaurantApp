@@ -1,4 +1,3 @@
-import Dish from "./Dish";
 import DishContainer from "./DishContainer";
 import OrderList from "./OrderList/OrderList";
 

@@ -1,19 +1,9 @@
-import { getAllDishes, getCart } from "../../fetchsource";
+import { getCart } from "../../fetchsource";
 import { useQuery } from "react-query";
 import ContactData from "./ContactData";
 import {CircularProgress} from "@nextui-org/react";
 import { useAuth } from "@clerk/clerk-react";
 import DishCard from "./DishCard";
-
-
-interface DishItem {
-    name: string
-    price: number
-    description: string
-    quantity: number
-    imageUrl: string
-    id: string
-}
 
 export default function ShoppingCart(){
     const {getToken} = useAuth();

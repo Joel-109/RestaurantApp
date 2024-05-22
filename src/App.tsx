@@ -14,9 +14,6 @@ export enum ActiveWindow {
 export default function App() {
   const darkMode = useDarkMode(false);
   const [activeWindow,setActiveWindow] = useState(ActiveWindow.DashBoard);
-  const [userDishes, setUserDishes] = useState([]);
-  const darkmode =`${darkMode.value ? 'dark' : ''} text-foreground bg-background`
-
  
   return (
     <main className={"w-full"+darkMode}>
