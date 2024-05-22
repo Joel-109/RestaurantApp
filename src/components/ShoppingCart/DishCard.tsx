@@ -44,6 +44,10 @@ export default function DishCard(props: DishProps) {
   if (isLoading || dishLoading) { 
     return <CircularProgress color="warning" aria-label="Loading..."/>
   }
+  
+  if (!dishInfo) {
+    return <p>There was an error</p>
+  }
 
   function changeToDescription(){
     setImage(!image);

@@ -5,10 +5,19 @@ export async function getAllDishes(){
     return data;
 }
 
-export async function getDishInfo(id: string){
+export async function getDishInfo(id: string) : Promise<Dish> {
     const response = await fetch(`http://restfullapi-production-374f.up.railway.app/api/dish/${id}`);
     const data = response.json().catch((error)=>console.error(error));
     return data;
+}
+
+interface Dish {
+    id: string;
+    name: number;
+    category: string;
+    imageUrl: string;
+    price: number;
+    description: string;
 }
 
 
@@ -54,6 +63,7 @@ interface Order {
     OrderId: string;
     Status: "Pending" | "In delivery" | "Delivered";
     Date: string;
+    Products: Product[];
 }
 
 export async function getOrders(token: string | null) : Promise<Order[]> {

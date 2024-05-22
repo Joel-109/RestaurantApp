@@ -22,7 +22,7 @@ function OrderList(){
         <section className="flex flex-col gap-4 ml-2.5 pb-2 overflow-x-auto scrollbar-hide mt-2">
             <h1 className="mt-4 font-bold text-lg"> OrderList </h1>
             <section className="flex gap-8">
-                {orders?.map((order)=><OrderCard key={order.OrderId} id={order.OrderId} date={order.Date} deliveryAddress={order.DeliveryAdress} status={order.Status}/>)}
+                {orders?.map((order)=><OrderCard key={order.OrderId} products={order.Products} id={order.OrderId} date={order.Date} deliveryAddress={order.DeliveryAdress} status={order.Status}/>)}
             </section>
         </section> 
     );
