@@ -35,7 +35,7 @@ export default function App() {
                <SignInButton  />
             </button>
           </div>
-          <img src="public\imagenPortada.jpg" className='w-72 h-72 object-cover rounded-md' alt="" />
+          <img src="https://utfs.io/f/7dfa226a-5198-4cec-965b-a57a2bc5e1ae-1nq2cb.jpeg" className='w-72 h-72 object-cover rounded-md' alt="" />
         </article>
     </SignedOut>
     </main>

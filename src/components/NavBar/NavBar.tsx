@@ -27,7 +27,7 @@ export function NavBar(NavBarProps: NavBarProps) {
         />
         <NavbarBrand>
           <img
-            src="https://utfs.io/f/a47bcfcf-7caa-4cfa-b744-314e69a9e702-ojmlqz.png"
+            src="https://utfs.io/f/4f59a34f-6c10-4833-9744-73c7a767f86e-1zbfv.webp"
             alt="ACME"
             className="w-8 h-8 rounded-3xl"
           />
