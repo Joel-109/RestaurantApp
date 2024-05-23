@@ -35,7 +35,7 @@ export default function ShoppingCart(){
                 <ContactData totalPrice={CartInfo.TotalPrice}></ContactData>
             </article>
             <h1 className="font-bold">Order Dishes</h1>
-            <section className="flex flex-wrap w-full my-4">
+            <section className="flex flex-wrap w-full my-4 justify-center md:justify-start">
                 {CartInfo.Products?.map((dish)=> 
                 <DishCard key={dish.ProductId} id={dish.ProductId} ></DishCard>)}
             </section>

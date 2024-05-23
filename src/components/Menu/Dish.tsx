@@ -51,7 +51,7 @@ export default function Dish(props: DishProps) {
   }
 
   return (
-    <article className="mx-1">
+    <article className="mx-1 mb-2">
       <Card
       isFooterBlurred
       radius="lg"
