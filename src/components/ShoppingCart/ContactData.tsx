@@ -39,7 +39,7 @@ export default function ContactData( props: Props){
 
     return ( 
         <>
-        <article className="flex mt-5 items-center justify-center wrap">
+        <article className="flex mt-5 items-center justify-center flex-wrap">
             <Input
                 onChange={(e)=> setAddress(e.currentTarget.value)}
                 isClearable

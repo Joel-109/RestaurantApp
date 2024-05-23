@@ -26,7 +26,7 @@ export default function DishContainer(){
     return (
         <>
             <h1 className="ml-3 font-bold"> Dishes </h1>
-            <section className="flex flex-wrap p-5">
+            <section className="flex flex-wrap p-5 justify-center md:justify-start">
                 {data?.map((dish)=> 
                 <Dish key={dish.id} category={dish.category} name={dish.name} price={dish.price} description={dish.description} imageUrl={dish.imageUrl} quantity={dish.quantity} id={dish.id}></Dish>)}
             </section>
