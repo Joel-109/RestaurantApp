@@ -25,7 +25,7 @@ export default function DishCard(props: DishProps) {
     queryFn: ()=> getToken().then((token) => getDishQuantity(token, props.id)),
   });
 
-  const {mutate : addDish} = useMutation({
+  const {mutate : addDish, isLoading: sumLoading} = useMutation({
     mutationFn: ()=>getToken().then((token) => addDishToCart(token, props.id)),
     onSuccess: ()=> {
       queryClient.invalidateQueries({queryKey:[`dish${props.id}`]})
@@ -33,7 +33,7 @@ export default function DishCard(props: DishProps) {
     },
   });
   
-  const {mutate : deleteDish} = useMutation({
+  const {mutate : deleteDish, isLoading: delLoading} = useMutation({
     mutationFn: ()=>getToken().then((token) => deleteDishFromCart(token, props.id)),
     onSuccess: ()=> {
       queryClient.invalidateQueries({queryKey:[`dish${props.id}`]})
@@ -47,6 +47,11 @@ export default function DishCard(props: DishProps) {
   
   if (!dishInfo) {
     return <p>There was an error</p>
+  }
+
+  function isLoadingOperation() {
+    if (delLoading || sumLoading) { return true }
+    return false
   }
 
   function changeToDescription(){
@@ -83,11 +88,13 @@ export default function DishCard(props: DishProps) {
           </div> </Card>
           }
       <CardFooter className="justify-between  before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 shadow-small z-10 w-full">
-        <Button onClick={() => addDish()} className="text-tiny text-white font-bold bg-black/20" variant="flat" color="default" radius="lg" size="sm">
+        <Button onClick={() => addDish()} className="text-tiny text-white font-bold bg-black/20" variant="flat" color="default" radius="lg" size="sm"
+                    disabled = {isLoadingOperation()}>
           +
         </Button>
-        <p className="text-white font-bold">{isError ? 0: quantity}</p>
-        <Button onClick={() => deleteDish()} className="text-tiny text-white font-bold bg-black/20" variant="flat" color="default" radius="lg" size="sm">
+        <p className="text-white font-bold">{isError ? 0: isLoadingOperation() ? <CircularProgress color="warning" aria-label="Loading..."/>: quantity}</p>
+        <Button onClick={() => deleteDish()} className="text-tiny text-white font-bold bg-black/20" variant="flat" color="default" radius="lg" size="sm"
+                    disabled = {isLoadingOperation()}>
           -
         </Button>
         </CardFooter>
