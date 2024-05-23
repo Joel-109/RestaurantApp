@@ -19,6 +19,10 @@ export default function ContactData( props: Props){
     console.log("ContactData rendered: ", deliveryAddress)
 
     const sendOrder = async (address: string) => {
+        if (!address) {
+            toast.error("Please enter your address")
+            throw new Error("Please enter your address")
+        }
         const token = await getToken();
         return makeOrder(token, address);
     }
