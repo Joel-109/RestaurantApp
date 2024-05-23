@@ -4,7 +4,8 @@ import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
 import useDarkMode from 'use-dark-mode';
 import DashBoard from './components/Menu/DashBoard.tsx';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart.tsx';
-
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 export enum ActiveWindow {
   ShoppingCart,
@@ -38,6 +39,7 @@ export default function App() {
           <img src="https://utfs.io/f/7dfa226a-5198-4cec-965b-a57a2bc5e1ae-1nq2cb.jpeg" className='w-72 h-72 object-cover rounded-md' alt="" />
         </article>
     </SignedOut>
+    <ToastContainer/>
     </main>
   )
 }

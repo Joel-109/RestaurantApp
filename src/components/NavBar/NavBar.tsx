@@ -65,9 +65,6 @@ export function NavBar(NavBarProps: NavBarProps) {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
         <NavbarItem>
           <UserButton />
         </NavbarItem>

@@ -45,7 +45,7 @@ export async function getCart(token: string | null) : Promise<CartInfo> {
     return data;
 }
 
-export async function makeOrder(token: string | null, address: string) : Promise<boolean> {
+export async function makeOrder(token: string | null, address: string) {
     const response = await fetch(`https://backenduserapiv2-production.up.railway.app/clientService/orders/${address}`, {
         method: 'POST',
         mode:"cors",
@@ -54,8 +54,10 @@ export async function makeOrder(token: string | null, address: string) : Promise
             'Authorization': `Bearer ${token}` 
         }
     });
-    
-    return response.ok;
+
+    if (!response.ok) {
+        throw new Error("Error sending order");
+    }
 }
 
 interface Order {

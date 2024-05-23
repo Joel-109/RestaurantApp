@@ -4,7 +4,7 @@ import { useMutation,useQueryClient } from "react-query";
 import { makeOrder } from "../../fetchsource";
 import { useAuth } from "@clerk/clerk-react";
 import { useState } from "react";
-
+import { toast } from "react-toastify";
 
 
 interface Props {
@@ -18,16 +18,27 @@ export default function ContactData( props: Props){
 
     console.log("ContactData rendered: ", deliveryAddress)
 
+    const sendOrder = async (address: string) => {
+        const token = await getToken();
+        return makeOrder(token, address);
+    }
+
     const { mutate: submitOrder } = useMutation({
-        mutationFn: (address:string)=>getToken().then((token) => makeOrder(token, address)),
+        mutationFn: (address:string) => sendOrder(address),
         onSuccess: () => {
             queryClient.invalidateQueries("cart");
             queryClient.invalidateQueries("orders");
             queryClient.setQueryData("cart", { TotalPrice: 0, Products: []})
+            toast.success("Order sent successfully")
         },
-    })
+        onError: (error) => {
+            toast.error("Error sending order")
+            console.error("Error sending order: ", error)
+        }
+    }) 
 
     return ( 
+        <>
         <article className="flex mt-5 items-center justify-center wrap">
             <Input
                 onChange={(e)=> setAddress(e.currentTarget.value)}
@@ -35,16 +46,17 @@ export default function ContactData( props: Props){
                 type="text"
                 label="Address"
                 variant="bordered"
-                defaultValue="Enter your address"
+                placeholder="Enter your address"
                 onClear={() => console.log("input cleared")}
+                isRequired
                 className="max-w-lg"
             />
             <Input
                 isClearable
-                type="text"
+                type=""
                 label="Phone Number"
                 variant="bordered"
-                defaultValue="Enter your number"
+                placeholder="Enter your phone number"
                 onClear={() => console.log("input cleared")}
                 className="max-w-lg ml-5"
             />
@@ -58,5 +70,6 @@ export default function ContactData( props: Props){
                 Send
             </Button>
         </article>
+        </>
     );
 }
